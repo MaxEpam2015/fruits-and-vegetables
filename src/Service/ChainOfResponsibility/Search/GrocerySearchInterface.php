@@ -1,16 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
-namespace App\ChainOfResponsibility\Filter;
-
+namespace App\Service\ChainOfResponsibility\Search;
 
 use App\Repository\GroceryRepository;
 use Doctrine\ORM\QueryBuilder;
 
-interface GroceryFilterInterface
+interface GrocerySearchInterface
 {
+    public function setNext(GrocerySearchInterface $nextField): GrocerySearchInterface;
+
     public function handle(array $criteria, GroceryRepository $groceryRepository, QueryBuilder &$result): void;
 
-    public function setNext(GroceryFilterInterface $nextField): GroceryFilterInterface;
 }

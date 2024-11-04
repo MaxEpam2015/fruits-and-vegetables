@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\ChainOfResponsibility\Filter\GroceryListFilterService;
-use App\ChainOfResponsibility\Search\GrocerySearchService;
 use App\Dto\GroceryAddDto;
 use App\Response\ApiResponse;
+use App\Service\ChainOfResponsibility\Filter\GroceryListFilterService;
+use App\Service\ChainOfResponsibility\Search\GrocerySearchService;
 use App\Service\GroceryService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

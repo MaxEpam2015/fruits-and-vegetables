@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\ChainOfResponsibility\Filter;
+namespace App\Service\ChainOfResponsibility\Filter;
 
-use App\ChainOfResponsibility\Filter\Fields\Quantity;
-use App\ChainOfResponsibility\Filter\Fields\Type;
 use App\Repository\GroceryRepository;
+use App\Service\ChainOfResponsibility\Filter\Fields\Quantity;
+use App\Service\ChainOfResponsibility\Filter\Fields\Type;
 
 class GroceryListFilterService
 {

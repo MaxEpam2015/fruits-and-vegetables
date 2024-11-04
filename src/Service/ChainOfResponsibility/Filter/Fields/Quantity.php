@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\ChainOfResponsibility\Filter\Fields;
+namespace App\Service\ChainOfResponsibility\Filter\Fields;
 
-use App\ChainOfResponsibility\Filter\GroceryFilterInterface;
 use App\Repository\GroceryRepository;
+use App\Service\ChainOfResponsibility\Filter\GroceryFilterInterface;
 use Doctrine\ORM\QueryBuilder;
 
 class Quantity implements GroceryFilterInterface

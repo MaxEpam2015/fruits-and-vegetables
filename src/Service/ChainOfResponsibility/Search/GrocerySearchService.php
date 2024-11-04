@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\ChainOfResponsibility\Search;
+namespace App\Service\ChainOfResponsibility\Search;
 
-use App\ChainOfResponsibility\Search\Fields\Name;
-use App\ChainOfResponsibility\Search\Fields\Quantity;
-use App\ChainOfResponsibility\Search\Fields\Type;
 use App\Repository\GroceryRepository;
+use App\Service\ChainOfResponsibility\Search\Fields\Name;
+use App\Service\ChainOfResponsibility\Search\Fields\Quantity;
+use App\Service\ChainOfResponsibility\Search\Fields\Type;
 
 class GrocerySearchService
 {

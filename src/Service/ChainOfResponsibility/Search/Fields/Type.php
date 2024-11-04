@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\ChainOfResponsibility\Search\Fields;
+namespace App\Service\ChainOfResponsibility\Search\Fields;
 
-use App\ChainOfResponsibility\Search\GrocerySearchInterface;
 use App\Repository\GroceryRepository;
+use App\Service\ChainOfResponsibility\Search\GrocerySearchInterface;
 use Doctrine\ORM\QueryBuilder;
 
 class Type implements GrocerySearchInterface

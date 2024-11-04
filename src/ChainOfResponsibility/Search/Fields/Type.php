@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\ChainOfResponsibility\Search\Fields;
 
-use App\Interfaces\GrocerySearchInterface;
+use App\ChainOfResponsibility\Search\GrocerySearchInterface;
 use App\Repository\GroceryRepository;
 use Doctrine\ORM\QueryBuilder;
 

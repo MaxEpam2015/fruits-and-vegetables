@@ -7,7 +7,6 @@ namespace App\ChainOfResponsibility\Search;
 use App\ChainOfResponsibility\Search\Fields\Name;
 use App\ChainOfResponsibility\Search\Fields\Quantity;
 use App\ChainOfResponsibility\Search\Fields\Type;
-use App\Interfaces\GrocerySearchInterface;
 use App\Repository\GroceryRepository;
 
 class GrocerySearchService

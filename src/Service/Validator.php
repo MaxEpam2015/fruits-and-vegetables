@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
-final class Validator
+class Validator
 {
     public function __construct(
         private ValidatorInterface $validator,

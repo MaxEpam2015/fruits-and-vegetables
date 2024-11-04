@@ -7,20 +7,18 @@ namespace App\Service;
 use App\Repository\GroceryRepository;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-final class FileParser
+class FileParser
 {
     public function __construct(
         protected GroceryRepository $groceryRepository,
         protected Converter $converter,
-    )
-    {
-    }
+        protected string $filePath
+    ) {}
 
     public function perform(SymfonyStyle $symfonyOutput): bool
     {
-        $rootPath = __DIR__ . '/../../';
-        $filePath = $rootPath . 'request.json';
-        $fileContent = file_get_contents($filePath);
+        $fileContent = file_get_contents($this->filePath);
+//        dd($fileContent);
         if ($fileContent === false) {
             $symfonyOutput->error('Unable to read JSON');
 

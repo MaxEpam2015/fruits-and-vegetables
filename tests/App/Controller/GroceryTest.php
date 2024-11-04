@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Controller;
+namespace App\Tests\App\Controller;
 
 use App\Entity\Grocery;
 use App\Repository\GroceryRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class FruitTest extends WebTestCase
+class GroceryTest extends WebTestCase
 {
-    const URI = '/api/fruit';
+    const URI = '/api/grocery';
     const TYPE = 'fruit';
     public function testAddSuccess()
     {
@@ -19,6 +20,10 @@ class FruitTest extends WebTestCase
         $client->catchExceptions(false);
 
         $groceryRepository = static::getContainer()->get(GroceryRepository::class);
+
+        $urlGenerator = self::getContainer()->get(UrlGeneratorInterface::class);
+
+        $url = $urlGenerator->generate('api_grocery_add', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
         $expectedGroceryCount = count($groceryRepository->findAll());
         $data = [
@@ -29,8 +34,8 @@ class FruitTest extends WebTestCase
 
         $client->request(
             'POST',
-            self::URI,
-            content: json_encode($data)
+            $url,
+            $data
         );
 
         $actualGroceryCount = count($groceryRepository->findAll());
@@ -44,6 +49,8 @@ class FruitTest extends WebTestCase
         $client = static::createClient();
 
         $groceryRepository = static::getContainer()->get(GroceryRepository::class);
+        $urlGenerator = self::getContainer()->get(UrlGeneratorInterface::class);
+        $url = $urlGenerator->generate('api_grocery_add', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
         $expectedGroceryCount = count($groceryRepository->findAll());
         $data = [
@@ -52,13 +59,13 @@ class FruitTest extends WebTestCase
         ];
         $client->request(
             'POST',
-            self::URI,
-            content: json_encode($data)
+            $url,
+            $data
         );
 
         $actualGroceryCount = count($groceryRepository->findAll());
 
-        $this->assertResponseStatusCodeSame(400);
+        $this->assertResponseStatusCodeSame(422);
         $this->assertSame($expectedGroceryCount, $actualGroceryCount);
     }
 
@@ -69,6 +76,9 @@ class FruitTest extends WebTestCase
 
         $groceryRepository = static::getContainer()->get(GroceryRepository::class);
 
+        $urlGenerator = self::getContainer()->get(UrlGeneratorInterface::class);
+        $url = $urlGenerator->generate('api_grocery_add', [], UrlGeneratorInterface::ABSOLUTE_URL);
+
         $expectedGroceryCount = count($groceryRepository->findAll());
         $data = [
             "name" => "Apple",
@@ -77,13 +87,13 @@ class FruitTest extends WebTestCase
         ];
         $client->request(
             'POST',
-            self::URI,
-            content: json_encode($data)
+            $url,
+            $data
         );
 
         $actualGroceryCount = count($groceryRepository->findAll());
 
-        $this->assertResponseStatusCodeSame(400);
+        $this->assertResponseStatusCodeSame(422);
         $this->assertSame($expectedGroceryCount, $actualGroceryCount);
     }
 
@@ -93,6 +103,8 @@ class FruitTest extends WebTestCase
         $client->catchExceptions(false);
 
         $groceryRepository = static::getContainer()->get(GroceryRepository::class);
+
+        $urlGenerator = self::getContainer()->get(UrlGeneratorInterface::class);
 
         $data = [
             "name" => "Apple",
@@ -105,9 +117,12 @@ class FruitTest extends WebTestCase
         $grocery->setType($data['type']);
         $grocery->setUnit($data['unit'] ?? '');
         $groceryRepository->add($grocery);
+
+        $url = $urlGenerator->generate('api_grocery_delete', ['type'=> $grocery->getType(), 'id' =>$grocery->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+
         $client->request(
             'DELETE',
-            self::URI . '/' . $grocery->getId(),
+            $url
         );
 
         $this->assertResponseIsSuccessful();
@@ -119,9 +134,12 @@ class FruitTest extends WebTestCase
         $client = static::createClient();
         $client->catchExceptions(false);
 
+        $urlGenerator = self::getContainer()->get(UrlGeneratorInterface::class);
+        $url = $urlGenerator->generate('api_grocery_delete', ['type'=> 'fruit', 'id' => -1], UrlGeneratorInterface::ABSOLUTE_URL);
+
         $client->request(
             'DELETE',
-            self::URI . '/-1',
+            $url
         );
 
         $this->assertResponseStatusCodeSame(404);
@@ -131,9 +149,13 @@ class FruitTest extends WebTestCase
     {
 
         $client = static::createClient();
+
+        $urlGenerator = self::getContainer()->get(UrlGeneratorInterface::class);
+        $url = $urlGenerator->generate('api_grocery_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
+
         $client->request(
             'GET',
-            self::URI . '/'
+            $url
         );
 
         $this->assertResponseIsSuccessful();

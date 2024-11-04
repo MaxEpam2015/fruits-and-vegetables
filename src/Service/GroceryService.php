@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Dto\GroceryAddDto;
 use App\Entity\Grocery;
 use App\Repository\GroceryRepository;
-use App\Requests\GroceryRequest;
-use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-final class GroceryService
+class GroceryService
 {
 
     public function __construct(
@@ -19,30 +18,20 @@ final class GroceryService
     ) {
     }
 
-    public function add(array $data): string
+    public function add(GroceryAddDto $data): string
     {
-        if (empty($data['name']) || empty($data['type']) || empty($data['quantity'])) {
-            throw new BadRequestException('name, type or quantity should not be empty');
-        }
-        $groceryRequest = new GroceryRequest();
-        $groceryRequest->name = $data['name'];
-        $groceryRequest->type = $data['type'];
-        $groceryRequest->quantity = $data['quantity'];
-        $groceryRequest->unit = $data['unit'] ?? null;
-
-        $this->validator->validate($groceryRequest);
-
+        $this->validator->validate($data);
         $grocery = new Grocery();
-        $grocery->setName($data['name']);
-        $grocery->setQuantity($data['quantity']);
-        $grocery->setType($data['type']);
-        $grocery->setUnit($data['unit'] ?? '');
+        $grocery->setName($data->name);
+        $grocery->setQuantity($data->quantity);
+        $grocery->setType($data->type);
+        $grocery->setUnit($data->unit ?? '');
         $this->groceryRepository->add($grocery);
 
-        return $data['name'] . ' has been added successfully';
+        return $data->name . ' has been added successfully';
     }
 
-    public function remove(int|string $id, string $type): string
+    public function remove(string $type, int|string $id): string
     {
         $grocery = $this->groceryRepository->findOneBy(['type' => $type, 'id' => $id]);
 
@@ -53,6 +42,6 @@ final class GroceryService
         }
         $this->groceryRepository->remove($grocery);
 
-        return "Grocery id: {$id}, type: fruit has been removed successfully";
+        return "Grocery id: {$id}, type: {$type} has been removed successfully";
     }
 }

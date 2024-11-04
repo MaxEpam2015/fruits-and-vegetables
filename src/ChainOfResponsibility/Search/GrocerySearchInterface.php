@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Interfaces;
+namespace App\ChainOfResponsibility\Search;
 
 use App\Repository\GroceryRepository;
 use Doctrine\ORM\QueryBuilder;

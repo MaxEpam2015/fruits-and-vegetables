@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Interfaces;
+namespace App\ChainOfResponsibility\Filter;
 
 
 use App\Repository\GroceryRepository;

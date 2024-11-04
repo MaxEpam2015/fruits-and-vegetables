@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\ChainOfResponsibility\Filter;
 
-use App\ChainOfResponsibility\Filter\Fields\Type;
 use App\ChainOfResponsibility\Filter\Fields\Quantity;
-use App\Interfaces\GroceryFilterInterface;
+use App\ChainOfResponsibility\Filter\Fields\Type;
 use App\Repository\GroceryRepository;
 
 class GroceryListFilterService

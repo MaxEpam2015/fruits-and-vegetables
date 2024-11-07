@@ -15,9 +15,9 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 class Grocery
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column]
-    #[Groups([ 'grocery:read'])]
+    #[Groups(['grocery:read'])]
     private int $id;
 
     #[ORM\Column(type: 'string', length: 255)]

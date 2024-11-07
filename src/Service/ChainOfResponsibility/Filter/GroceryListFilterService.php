@@ -22,7 +22,10 @@ class GroceryListFilterService
         $this->firstField = $typeField;
     }
 
-    public function perform(array $criteria): array
+    /**
+     * @param array{type: string, minQuantity: ?int, maxQuantity: ?int} $criteria
+     */
+    public function perform(array $criteria): mixed
     {
         $result = $this->groceryRepository->createQueryBuilder('g');
         $this->firstField->handle($criteria , $this->groceryRepository, $result);

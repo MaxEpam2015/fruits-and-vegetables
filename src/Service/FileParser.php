@@ -18,7 +18,6 @@ class FileParser
     public function perform(SymfonyStyle $symfonyOutput): bool
     {
         $fileContent = file_get_contents($this->filePath);
-//        dd($fileContent);
         if ($fileContent === false) {
             $symfonyOutput->error('Unable to read JSON');
 

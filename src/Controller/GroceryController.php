@@ -36,7 +36,6 @@ final class GroceryController extends AbstractController
             'minQuantity' => $request->query->get('minQuantity'),
             'maxQuantity' => $request->query->get('maxQuantity'),
         ];
-
         $response = $this->grocerySearchService->perform($filters);
         $apiResponse = new ApiResponse('Success', data: $response);
 

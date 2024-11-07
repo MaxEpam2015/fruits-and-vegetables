@@ -7,12 +7,15 @@ namespace App\Response;
 class ApiResponse
 {
     public function __construct(
-        protected $status = 'Success',
+        protected string $status = 'Success',
         protected string $message = '',
-        protected array $data = [],
+        protected mixed $data = [],
     ) {
     }
 
+    /**
+     * @return string[]
+     */
     public function toArray(): array
     {
         $responseArray = [

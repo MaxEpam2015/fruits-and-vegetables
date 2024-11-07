@@ -10,7 +10,6 @@ use Doctrine\ORM\QueryBuilder;
 
 class Name implements GrocerySearchInterface
 {
-    private ?GrocerySearchInterface $next = null;
     private ?GrocerySearchInterface $nextField = null;
 
     public function handle(array $criteria, GroceryRepository $groceryRepository, QueryBuilder &$result): void
@@ -20,7 +19,7 @@ class Name implements GrocerySearchInterface
         }
 
         if ($this->nextField) {
-            $this->nextField?->handle($criteria, $groceryRepository, $result);
+            $this->nextField->handle($criteria, $groceryRepository, $result);
         }
     }
     public function setNext(GrocerySearchInterface $nextField): GrocerySearchInterface

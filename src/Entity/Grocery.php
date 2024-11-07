@@ -23,20 +23,20 @@ class Grocery
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups([ 'grocery:read'])]
     #[SerializedName('name')]
-    private $name;
+    private string $name;
 
     #[ORM\Column(type: 'string', length: 50)]
     #[Groups([ 'grocery:read'])]
     #[SerializedName('type')]
-    private $type;
+    private string $type;
 
      #[ORM\Column(type: 'integer')]
      #[Groups([ 'grocery:read'])]
      #[SerializedName('quantity')]
-    private $quantity;
+    private int $quantity;
 
      #[ORM\Column(type: 'string', length: 10)]
-    private $unit = 'g';
+    private string $unit = 'g';
 
     public function __construct()
     {

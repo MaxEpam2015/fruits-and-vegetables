@@ -19,7 +19,7 @@ class Type implements GrocerySearchInterface
         }
 
         if ($this->nextField) {
-            $this->nextField?->handle($criteria, $groceryRepository, $result);
+            $this->nextField->handle($criteria, $groceryRepository, $result);
         }
     }
     public function setNext(GrocerySearchInterface $nextField): GrocerySearchInterface

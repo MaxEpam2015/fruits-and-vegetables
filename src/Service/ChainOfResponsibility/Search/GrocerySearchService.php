@@ -24,7 +24,10 @@ class GrocerySearchService
         $this->firstField = $nameField;
     }
 
-    public function perform(array $criteria): array
+    /**
+     * @param array{name: string, type: string, minQuantity: ?int, maxQuantity: ?int} $criteria
+     */
+    public function perform(array $criteria): mixed
     {
         $result = $this->groceryRepository->createQueryBuilder('g');
         $this->firstField->handle($criteria , $this->groceryRepository, $result);

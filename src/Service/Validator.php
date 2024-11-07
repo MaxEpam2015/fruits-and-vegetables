@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Dto\GroceryAddDto;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
-class Validator
+readonly class Validator
 {
     public function __construct(
         private ValidatorInterface $validator,
@@ -17,7 +18,7 @@ class Validator
     ) {
     }
 
-    public function validate($data): void
+    public function validate(GroceryAddDto $data): void
     {
         $errors = $this->validator->validate($data);
 

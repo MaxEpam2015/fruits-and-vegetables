@@ -14,7 +14,7 @@ class GroceryTest extends WebTestCase
 {
     const URI = '/api/grocery';
     const TYPE = 'fruit';
-    public function testAddSuccess()
+    public function testAddSuccess(): void
     {
         $client = static::createClient();
         $client->catchExceptions(false);
@@ -44,7 +44,7 @@ class GroceryTest extends WebTestCase
         $this->assertGreaterThan($expectedGroceryCount, $actualGroceryCount);
     }
 
-    public function testAddInvalidDataFormat()
+    public function testAddInvalidDataFormat(): void
     {
         $client = static::createClient();
 
@@ -70,7 +70,7 @@ class GroceryTest extends WebTestCase
     }
 
 
-    public function testAddInvalidQuantityType()
+    public function testAddInvalidQuantityType(): void
     {
         $client = static::createClient();
 
@@ -97,7 +97,7 @@ class GroceryTest extends WebTestCase
         $this->assertSame($expectedGroceryCount, $actualGroceryCount);
     }
 
-    public function testRemoveSuccess()
+    public function testRemoveSuccess(): void
     {
         $client = static::createClient();
         $client->catchExceptions(false);
@@ -110,12 +110,13 @@ class GroceryTest extends WebTestCase
             "name" => "Apple",
             "quantity" => 200,
             "type" => self::TYPE,
+            "unit" => 'kg'
         ];
         $grocery = new Grocery();
         $grocery->setName($data['name']);
         $grocery->setQuantity($data['quantity']);
         $grocery->setType($data['type']);
-        $grocery->setUnit($data['unit'] ?? '');
+        $grocery->setUnit($data['unit']);
         $groceryRepository->add($grocery);
 
         $url = $urlGenerator->generate('api_grocery_delete', ['type'=> $grocery->getType(), 'id' =>$grocery->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
@@ -128,7 +129,7 @@ class GroceryTest extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
-    public function testRemoveNotFoundGrocery()
+    public function testRemoveNotFoundGrocery(): void
     {
         $this->expectException(NotFoundHttpException::class);
         $client = static::createClient();
@@ -145,7 +146,7 @@ class GroceryTest extends WebTestCase
         $this->assertResponseStatusCodeSame(404);
     }
 
-    public function testListSuccess()
+    public function testListSuccess(): void
     {
 
         $client = static::createClient();

@@ -9,6 +9,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
+/**
+ * @extends ServiceEntityRepository<Grocery>
+ */
 class GroceryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -16,30 +19,10 @@ class GroceryRepository extends ServiceEntityRepository
         parent::__construct($registry, Grocery::class);
     }
 
-    public function findByType(string $type)
-    {
-        return $this->createQueryBuilder('g')
-            ->where('g.type = :type')
-            ->setParameter('type', $type)
-            ->getQuery()
-            ->getResult();
-    }
 
-    public function findByTypeAndId(string $type, int|string $id)
+    public function getResult(QueryBuilder $queryBuilder): mixed
     {
-        return $this->createQueryBuilder('g')
-            ->where('g.type = :type')
-            ->andWhere('g.id = :id')
-            ->setParameter('type', $type)
-            ->setParameter('id' ,$id )
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function getResult(QueryBuilder $queryBuilder)
-    {
-        return
-            $queryBuilder->getQuery()->getResult();
+        return $queryBuilder->getQuery()->getResult();
     }
 
     public function add(Grocery $entity, bool $flush = true): void
@@ -51,6 +34,9 @@ class GroceryRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @param array<int, array{id: int, name: string, type: string, quantity: int}> $data
+     */
     public function addMultipleItems(array $data): void
     {
         foreach ($data as $item) {
@@ -66,7 +52,6 @@ class GroceryRepository extends ServiceEntityRepository
     }
 
 
-
     public function remove(Grocery $item, bool $flush = true): void
     {
         $this->getEntityManager()->remove($item);
@@ -74,15 +59,6 @@ class GroceryRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
-    }
-
-    public function findByName(string $name)
-    {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.name = :name')
-            ->setParameter('name', $name)
-            ->getQuery()
-            ->getResult();
     }
 
     public function setNameFilter(QueryBuilder $queryBuilder, string $name): QueryBuilder
@@ -108,15 +84,5 @@ class GroceryRepository extends ServiceEntityRepository
     {
         return $queryBuilder->andWhere('g.quantity <= :maxQuantity')
             ->setParameter('maxQuantity', $maxQuantity);
-    }
-
-    public function findByQuantityRange(int $min, int $max)
-    {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.quantity BETWEEN :min AND :max')
-            ->setParameter('min', $min)
-            ->setParameter('max', $max)
-            ->getQuery()
-            ->getResult();
     }
 }

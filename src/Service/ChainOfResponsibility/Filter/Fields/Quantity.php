@@ -15,13 +15,14 @@ class Quantity implements GroceryFilterInterface
     public function setNext(GroceryFilterInterface $nextField): GroceryFilterInterface
     {
         $this->nextField = $nextField;
+
         return $nextField;
     }
 
     public function handle(array $criteria, GroceryRepository $groceryRepository, QueryBuilder &$result): void
     {
         if (isset($criteria['minQuantity'])) {
-            $result =  $groceryRepository->setMinQuantityFilter($result, $criteria['minQuantity']);
+            $result = $groceryRepository->setMinQuantityFilter($result, $criteria['minQuantity']);
         }
 
         if (isset($criteria['maxQuantity'])) {

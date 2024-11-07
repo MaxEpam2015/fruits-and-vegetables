@@ -12,26 +12,27 @@ class FileParser
     public function __construct(
         protected GroceryRepository $groceryRepository,
         protected Converter $converter,
-        protected string $filePath
-    ) {}
+        protected string $filePath,
+    ) {
+    }
 
     public function perform(SymfonyStyle $symfonyOutput): bool
     {
         $fileContent = file_get_contents($this->filePath);
-        if ($fileContent === false) {
+        if (false === $fileContent) {
             $symfonyOutput->error('Unable to read JSON');
 
             return false;
         }
         $data = json_decode($fileContent, true);
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            $symfonyOutput->error('Invalid JSON: ' . json_last_error_msg());
+        if (JSON_ERROR_NONE !== json_last_error()) {
+            $symfonyOutput->error('Invalid JSON: '.json_last_error_msg());
 
             return false;
         }
 
         foreach ($data as $key => $item) {
-            if ($item['unit'] === 'kg') {
+            if ('kg' === $item['unit']) {
                 $data[$key]['quantity'] = $this->converter->convertKilogramsToGrams($item['quantity']);
             }
             unset($data[$key]['unit']);

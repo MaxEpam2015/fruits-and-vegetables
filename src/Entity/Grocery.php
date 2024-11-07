@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\GroceryRepository;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
@@ -21,27 +21,28 @@ class Grocery
     private int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups([ 'grocery:read'])]
+    #[Groups(['grocery:read'])]
     #[SerializedName('name')]
     private string $name;
 
     #[ORM\Column(type: 'string', length: 50)]
-    #[Groups([ 'grocery:read'])]
+    #[Groups(['grocery:read'])]
     #[SerializedName('type')]
     private string $type;
 
-     #[ORM\Column(type: 'integer')]
-     #[Groups([ 'grocery:read'])]
-     #[SerializedName('quantity')]
+    #[ORM\Column(type: 'integer')]
+    #[Groups(['grocery:read'])]
+    #[SerializedName('quantity')]
     private int $quantity;
 
-     #[ORM\Column(type: 'string', length: 10)]
+    #[ORM\Column(type: 'string', length: 10)]
     private string $unit = 'g';
 
     public function __construct()
     {
         $this->unit = 'g';
     }
+
     public function getId(): ?int
     {
         return $this->id;

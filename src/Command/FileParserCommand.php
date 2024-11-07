@@ -28,7 +28,7 @@ class FileParserCommand extends Command
         $symfonyOutput = new SymfonyStyle($input, $output);
         $response = $this->fileParser->perform($symfonyOutput);
 
-        if ($response === false) {
+        if (false === $response) {
             $symfonyOutput->error('File parsing failed');
 
             return Command::FAILURE;

@@ -10,14 +10,13 @@ use App\Service\ChainOfResponsibility\Filter\Fields\Type;
 
 class GroceryListFilterService
 {
-
     protected GroceryFilterInterface $firstField;
+
     public function __construct(
         protected GroceryRepository $groceryRepository,
         Type $typeField,
-        Quantity $quantityField
-    )
-    {
+        Quantity $quantityField,
+    ) {
         $typeField->setNext($quantityField);
         $this->firstField = $typeField;
     }
@@ -28,7 +27,7 @@ class GroceryListFilterService
     public function perform(array $criteria): mixed
     {
         $result = $this->groceryRepository->createQueryBuilder('g');
-        $this->firstField->handle($criteria , $this->groceryRepository, $result);
+        $this->firstField->handle($criteria, $this->groceryRepository, $result);
 
         return $this->groceryRepository->getResult($result);
     }

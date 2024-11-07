@@ -19,7 +19,6 @@ class GroceryRepository extends ServiceEntityRepository
         parent::__construct($registry, Grocery::class);
     }
 
-
     public function getResult(QueryBuilder $queryBuilder): mixed
     {
         return $queryBuilder->getQuery()->getResult();
@@ -51,7 +50,6 @@ class GroceryRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
     }
 
-
     public function remove(Grocery $item, bool $flush = true): void
     {
         $this->getEntityManager()->remove($item);
@@ -64,7 +62,7 @@ class GroceryRepository extends ServiceEntityRepository
     public function setNameFilter(QueryBuilder $queryBuilder, string $name): QueryBuilder
     {
         return $queryBuilder->andWhere('g.name LIKE :name')
-            ->setParameter('name', '%' . $name . '%');
+            ->setParameter('name', '%'.$name.'%');
     }
 
     public function setTypeFilter(QueryBuilder $queryBuilder, string $type): QueryBuilder
@@ -72,7 +70,6 @@ class GroceryRepository extends ServiceEntityRepository
         return $queryBuilder->andWhere('g.type = :type')
             ->setParameter('type', $type);
     }
-
 
     public function setMinQuantityFilter(QueryBuilder $queryBuilder, int|string $minQuantity): QueryBuilder
     {

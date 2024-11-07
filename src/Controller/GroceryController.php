@@ -23,11 +23,11 @@ final class GroceryController extends AbstractController
         protected GrocerySearchService $grocerySearchService,
         protected GroceryListFilterService $groceryListFilterService,
         protected GroceryService $groceryService,
-        protected SerializerInterface $serializer
+        protected SerializerInterface $serializer,
     ) {
     }
 
-    #[Route('/search', name: 'search', methods:['get'] )]
+    #[Route('/search', name: 'search', methods: ['get'])]
     public function search(Request $request): JsonResponse
     {
         $filters = [
@@ -42,18 +42,17 @@ final class GroceryController extends AbstractController
         return $this->json($apiResponse->toArray());
     }
 
-    #[Route('/grocery', name: 'grocery_add', methods:['post'] )]
+    #[Route('/grocery', name: 'grocery_add', methods: ['post'])]
     public function add(
-        #[MapRequestPayload] GroceryAddDto $groceryAddDto
-    ): JsonResponse
-    {
+        #[MapRequestPayload] GroceryAddDto $groceryAddDto,
+    ): JsonResponse {
         $responseMessage = $this->groceryService->add($groceryAddDto);
         $apiResponse = new ApiResponse('Success', message: $responseMessage);
 
         return $this->json($apiResponse->toArray());
     }
 
-    #[Route('/grocery/', name: 'grocery_list', methods:['get'])]
+    #[Route('/grocery/', name: 'grocery_list', methods: ['get'])]
     public function list(Request $request): JsonResponse
     {
         $criteria = [
@@ -67,7 +66,7 @@ final class GroceryController extends AbstractController
         return $this->json($apiResponse->toArray());
     }
 
-    #[Route('/grocery/{type}/{id}', name: 'grocery_delete', methods:['delete'])]
+    #[Route('/grocery/{type}/{id}', name: 'grocery_delete', methods: ['delete'])]
     public function remove(string $type, int $id): JsonResponse
     {
         $responseMessage = $this->groceryService->remove($type, $id);

@@ -5,26 +5,26 @@ namespace App\Tests\App\Service;
 use App\Repository\GroceryRepository;
 use App\Service\Converter;
 use App\Service\FileParser;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use PHPUnit\Framework\MockObject\MockObject;
 
 class FileParserTest extends KernelTestCase
 {
     private MockObject|GroceryRepository $groceryRepository;
     private MockObject|Converter $converter;
+
     protected function setUp(): void
     {
         $this->groceryRepository = $this->createMock(GroceryRepository::class);
         $this->converter = $this->createMock(Converter::class);
-
     }
 
     public function testPerformWithValidData(): void
     {
         self::bootKernel();
         $projectRoot = self::$kernel->getProjectDir();
-        $fileParser = new FileParser($this->groceryRepository, $this->converter, $projectRoot . '/request.json');
+        $fileParser = new FileParser($this->groceryRepository, $this->converter, $projectRoot.'/request.json');
         $symfonyOutput = $this->createMock(SymfonyStyle::class);
         $this->groceryRepository
             ->expects($this->once())

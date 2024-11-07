@@ -14,6 +14,6 @@ class ConverterTest extends TestCase
         $grams = $converter->convertKilogramsToGrams($twoKilogramsAsNumber);
         $this->assertIsInt($grams);
         $this->assertGreaterThan($twoKilogramsAsNumber, $grams);
-        $this->assertSame($grams,2000);
+        $this->assertSame($grams, 2000);
     }
 }

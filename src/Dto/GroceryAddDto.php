@@ -10,15 +10,15 @@ readonly class GroceryAddDto
 {
     public function __construct(
         #[Assert\NotBlank]
-        #[Assert\Type("string")]
+        #[Assert\Type('string')]
         public string $name,
 
         #[Assert\NotBlank]
-        #[Assert\Type("string")]
+        #[Assert\Type('string')]
         public string $type,
 
         #[Assert\NotBlank]
-        #[Assert\Type("integer")]
+        #[Assert\Type('integer')]
         #[Assert\Positive]
         public int $quantity,
     ) {

@@ -22,11 +22,11 @@ class Name implements GrocerySearchInterface
             $this->nextField->handle($criteria, $groceryRepository, $result);
         }
     }
+
     public function setNext(GrocerySearchInterface $nextField): GrocerySearchInterface
     {
         $this->nextField = $nextField;
+
         return $nextField;
     }
-
-
 }

@@ -12,8 +12,9 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class GroceryTest extends WebTestCase
 {
-    const URI = '/api/grocery';
-    const TYPE = 'fruit';
+    public const URI = '/api/grocery';
+    public const TYPE = 'fruit';
+
     public function testAddSuccess(): void
     {
         $client = static::createClient();
@@ -27,9 +28,9 @@ class GroceryTest extends WebTestCase
 
         $expectedGroceryCount = count($groceryRepository->findAll());
         $data = [
-            "name" => "Apple",
-            "quantity" => 200,
-            "type" => self::TYPE,
+            'name' => 'Apple',
+            'quantity' => 200,
+            'type' => self::TYPE,
         ];
 
         $client->request(
@@ -54,8 +55,8 @@ class GroceryTest extends WebTestCase
 
         $expectedGroceryCount = count($groceryRepository->findAll());
         $data = [
-            "quantity" => 200,
-            "type" => self::TYPE,
+            'quantity' => 200,
+            'type' => self::TYPE,
         ];
         $client->request(
             'POST',
@@ -69,7 +70,6 @@ class GroceryTest extends WebTestCase
         $this->assertSame($expectedGroceryCount, $actualGroceryCount);
     }
 
-
     public function testAddInvalidQuantityType(): void
     {
         $client = static::createClient();
@@ -81,9 +81,9 @@ class GroceryTest extends WebTestCase
 
         $expectedGroceryCount = count($groceryRepository->findAll());
         $data = [
-            "name" => "Apple",
-            "quantity" => "invalidType",
-            "type" => self::TYPE,
+            'name' => 'Apple',
+            'quantity' => 'invalidType',
+            'type' => self::TYPE,
         ];
         $client->request(
             'POST',
@@ -107,10 +107,10 @@ class GroceryTest extends WebTestCase
         $urlGenerator = self::getContainer()->get(UrlGeneratorInterface::class);
 
         $data = [
-            "name" => "Apple",
-            "quantity" => 200,
-            "type" => self::TYPE,
-            "unit" => 'kg'
+            'name' => 'Apple',
+            'quantity' => 200,
+            'type' => self::TYPE,
+            'unit' => 'kg',
         ];
         $grocery = new Grocery();
         $grocery->setName($data['name']);
@@ -119,7 +119,7 @@ class GroceryTest extends WebTestCase
         $grocery->setUnit($data['unit']);
         $groceryRepository->add($grocery);
 
-        $url = $urlGenerator->generate('api_grocery_delete', ['type'=> $grocery->getType(), 'id' =>$grocery->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+        $url = $urlGenerator->generate('api_grocery_delete', ['type' => $grocery->getType(), 'id' => $grocery->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
 
         $client->request(
             'DELETE',
@@ -136,7 +136,7 @@ class GroceryTest extends WebTestCase
         $client->catchExceptions(false);
 
         $urlGenerator = self::getContainer()->get(UrlGeneratorInterface::class);
-        $url = $urlGenerator->generate('api_grocery_delete', ['type'=> 'fruit', 'id' => -1], UrlGeneratorInterface::ABSOLUTE_URL);
+        $url = $urlGenerator->generate('api_grocery_delete', ['type' => 'fruit', 'id' => -1], UrlGeneratorInterface::ABSOLUTE_URL);
 
         $client->request(
             'DELETE',
@@ -148,7 +148,6 @@ class GroceryTest extends WebTestCase
 
     public function testListSuccess(): void
     {
-
         $client = static::createClient();
 
         $urlGenerator = self::getContainer()->get(UrlGeneratorInterface::class);

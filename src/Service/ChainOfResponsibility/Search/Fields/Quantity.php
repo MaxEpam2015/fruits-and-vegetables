@@ -15,10 +15,7 @@ class Quantity implements GrocerySearchInterface
     public function handle(array $criteria, GroceryRepository $groceryRepository, QueryBuilder &$result): void
     {
         if (isset($criteria['minQuantity'])) {
-
-            $result =  $groceryRepository->setMinQuantityFilter($result, $criteria['minQuantity']);
-
-
+            $result = $groceryRepository->setMinQuantityFilter($result, $criteria['minQuantity']);
         }
 
         if (isset($criteria['maxQuantity'])) {
@@ -31,8 +28,7 @@ class Quantity implements GrocerySearchInterface
     public function setNext(GrocerySearchInterface $nextField): GrocerySearchInterface
     {
         $this->nextField = $nextField;
+
         return $nextField;
     }
-
-
 }

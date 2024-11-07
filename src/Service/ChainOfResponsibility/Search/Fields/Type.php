@@ -15,18 +15,18 @@ class Type implements GrocerySearchInterface
     public function handle(array $criteria, GroceryRepository $groceryRepository, QueryBuilder &$result): void
     {
         if (isset($criteria['type'])) {
-            $result =  $groceryRepository->setTypeFilter($result, $criteria['type']);
+            $result = $groceryRepository->setTypeFilter($result, $criteria['type']);
         }
 
         if ($this->nextField) {
             $this->nextField->handle($criteria, $groceryRepository, $result);
         }
     }
+
     public function setNext(GrocerySearchInterface $nextField): GrocerySearchInterface
     {
         $this->nextField = $nextField;
+
         return $nextField;
     }
-
-
 }

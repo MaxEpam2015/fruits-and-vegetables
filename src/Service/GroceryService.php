@@ -11,7 +11,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class GroceryService
 {
-
     public function __construct(
         protected GroceryRepository $groceryRepository,
         protected Validator $validator,
@@ -28,7 +27,7 @@ class GroceryService
         $grocery->setUnit($data->unit ?? '');
         $this->groceryRepository->add($grocery);
 
-        return $data->name . ' has been added successfully';
+        return $data->name.' has been added successfully';
     }
 
     public function remove(string $type, int|string $id): string
@@ -36,9 +35,7 @@ class GroceryService
         $grocery = $this->groceryRepository->findOneBy(['type' => $type, 'id' => $id]);
 
         if (!$grocery) {
-            throw new NotFoundHttpException(
-                'Not found grocery for id '. $id
-            );
+            throw new NotFoundHttpException('Not found grocery for id '.$id);
         }
         $this->groceryRepository->remove($grocery);
 

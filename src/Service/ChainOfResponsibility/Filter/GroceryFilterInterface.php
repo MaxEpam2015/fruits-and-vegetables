@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Service\ChainOfResponsibility\Filter;
 
-
 use App\Repository\GroceryRepository;
 use Doctrine\ORM\QueryBuilder;
 

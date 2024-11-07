@@ -18,8 +18,7 @@ class GrocerySearchService
         Name $nameField,
         Type $typeField,
         Quantity $quantityField,
-    )
-    {
+    ) {
         $nameField->setNext($typeField)->setNext($quantityField);
         $this->firstField = $nameField;
     }
@@ -30,7 +29,7 @@ class GrocerySearchService
     public function perform(array $criteria): mixed
     {
         $result = $this->groceryRepository->createQueryBuilder('g');
-        $this->firstField->handle($criteria , $this->groceryRepository, $result);
+        $this->firstField->handle($criteria, $this->groceryRepository, $result);
 
         return $this->groceryRepository->getResult($result);
     }

@@ -9,12 +9,11 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-
 readonly class Validator
 {
     public function __construct(
         private ValidatorInterface $validator,
-        private LoggerInterface $logger
+        private LoggerInterface $logger,
     ) {
     }
 
@@ -27,7 +26,7 @@ readonly class Validator
             $this->logger->error($errorsString);
             $errorMessages = [];
             foreach ($errors as $error) {
-                $errorMessages[] = $error->getPropertyPath() . ': ' . $error->getMessage();
+                $errorMessages[] = $error->getPropertyPath().': '.$error->getMessage();
             }
 
             throw new BadRequestException(json_encode($errorMessages));

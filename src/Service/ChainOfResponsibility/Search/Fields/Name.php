@@ -12,14 +12,14 @@ class Name implements GrocerySearchInterface
 {
     private ?GrocerySearchInterface $nextField = null;
 
-    public function handle(array $criteria, GroceryRepository $groceryRepository, QueryBuilder &$result): void
+    public function handle(array $fields, GroceryRepository $groceryRepository, QueryBuilder &$result): void
     {
-        if (isset($criteria['name'])) {
-            $result = $groceryRepository->setNameFilter($result, $criteria['name']);
+        if (isset($fields['name'])) {
+            $result = $groceryRepository->setNameFilter($result, $fields['name']);
         }
 
         if ($this->nextField) {
-            $this->nextField->handle($criteria, $groceryRepository, $result);
+            $this->nextField->handle($fields, $groceryRepository, $result);
         }
     }
 

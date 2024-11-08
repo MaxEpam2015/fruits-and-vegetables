@@ -10,9 +10,9 @@ use Doctrine\ORM\QueryBuilder;
 interface GroceryFilterInterface
 {
     /**
-     * @param array{type: ?string, minQuantity: ?int, maxQuantity: ?int} $criteria
+     * @param array{type: ?string, minQuantity: ?int, maxQuantity: ?int} $fields
      */
-    public function handle(array $criteria, GroceryRepository $groceryRepository, QueryBuilder &$result): void;
+    public function handle(array $fields, GroceryRepository $groceryRepository, QueryBuilder &$result): void;
 
     public function setNext(GroceryFilterInterface $nextField): GroceryFilterInterface;
 }

@@ -12,13 +12,13 @@ class Type implements GroceryFilterInterface
 {
     private ?GroceryFilterInterface $nextField = null;
 
-    public function handle(array $criteria, GroceryRepository $groceryRepository, QueryBuilder &$result): void
+    public function handle(array $fields, GroceryRepository $groceryRepository, QueryBuilder &$result): void
     {
-        if (isset($criteria['type'])) {
-            $result = $groceryRepository->setTypeFilter($result, $criteria['type']);
+        if (isset($fields['type'])) {
+            $result = $groceryRepository->setTypeFilter($result, $fields['type']);
         }
 
-        $this->nextField?->handle($criteria, $groceryRepository, $result);
+        $this->nextField?->handle($fields, $groceryRepository, $result);
     }
 
     public function setNext(GroceryFilterInterface $nextField): GroceryFilterInterface

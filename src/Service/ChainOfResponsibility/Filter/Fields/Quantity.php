@@ -19,16 +19,16 @@ class Quantity implements GroceryFilterInterface
         return $nextField;
     }
 
-    public function handle(array $criteria, GroceryRepository $groceryRepository, QueryBuilder &$result): void
+    public function handle(array $fields, GroceryRepository $groceryRepository, QueryBuilder &$result): void
     {
-        if (isset($criteria['minQuantity'])) {
-            $result = $groceryRepository->setMinQuantityFilter($result, $criteria['minQuantity']);
+        if (isset($fields['minQuantity'])) {
+            $result = $groceryRepository->setMinQuantityFilter($result, $fields['minQuantity']);
         }
 
-        if (isset($criteria['maxQuantity'])) {
-            $result = $groceryRepository->setMaxQuantityFilter($result, $criteria['maxQuantity']);
+        if (isset($fields['maxQuantity'])) {
+            $result = $groceryRepository->setMaxQuantityFilter($result, $fields['maxQuantity']);
         }
 
-        $this->nextField?->handle($criteria, $groceryRepository, $result);
+        $this->nextField?->handle($fields, $groceryRepository, $result);
     }
 }

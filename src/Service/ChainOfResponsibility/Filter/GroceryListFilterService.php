@@ -22,12 +22,12 @@ class GroceryListFilterService
     }
 
     /**
-     * @param array{type: string, minQuantity: ?int, maxQuantity: ?int} $criteria
+     * @param array{type: string, minQuantity: ?int, maxQuantity: ?int} $fields
      */
-    public function perform(array $criteria): mixed
+    public function perform(array $fields): mixed
     {
         $result = $this->groceryRepository->createQueryBuilder('g');
-        $this->firstField->handle($criteria, $this->groceryRepository, $result);
+        $this->firstField->handle($fields, $this->groceryRepository, $result);
 
         return $this->groceryRepository->getResult($result);
     }

@@ -10,7 +10,7 @@ interface GrocerySearchInterface
     public function setNext(GrocerySearchInterface $nextField): GrocerySearchInterface;
 
     /**
-     * @param array{name: ?string, type: ?string, minQuantity: ?int, maxQuantity: ?int} $criteria
+     * @param array{name: ?string, type: ?string, minQuantity: ?int, maxQuantity: ?int} $fields
      */
-    public function handle(array $criteria, GroceryRepository $groceryRepository, QueryBuilder &$result): void;
+    public function handle(array $fields, GroceryRepository $groceryRepository, QueryBuilder &$result): void;
 }

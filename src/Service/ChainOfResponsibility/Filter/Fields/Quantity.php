@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\ChainOfResponsibility\Filter\Fields;
 
+use App\Dto\GroceryListDto;
 use App\Repository\GroceryRepository;
 use App\Service\ChainOfResponsibility\Filter\GroceryFilterInterface;
 use Doctrine\ORM\QueryBuilder;
@@ -19,16 +20,16 @@ class Quantity implements GroceryFilterInterface
         return $nextField;
     }
 
-    public function handle(array $fields, GroceryRepository $groceryRepository, QueryBuilder &$result): void
+    public function handle(GroceryListDto $groceryListDto, GroceryRepository $groceryRepository, QueryBuilder &$result): void
     {
-        if (isset($fields['minQuantity'])) {
-            $result = $groceryRepository->setMinQuantityFilter($result, $fields['minQuantity']);
+        if (isset($groceryListDto->minQuantity)) {
+            $result = $groceryRepository->setMinQuantityFilter($result, $groceryListDto->minQuantity);
         }
 
-        if (isset($fields['maxQuantity'])) {
-            $result = $groceryRepository->setMaxQuantityFilter($result, $fields['maxQuantity']);
+        if (isset($groceryListDto->maxQuantity)) {
+            $result = $groceryRepository->setMaxQuantityFilter($result, $groceryListDto->maxQuantity);
         }
 
-        $this->nextField?->handle($fields, $groceryRepository, $result);
+        $this->nextField?->handle($groceryListDto, $groceryRepository, $result);
     }
 }

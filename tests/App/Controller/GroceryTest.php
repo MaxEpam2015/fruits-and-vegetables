@@ -12,7 +12,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class GroceryTest extends WebTestCase
 {
-    public const URI = '/api/grocery';
     public const TYPE = 'fruit';
 
     public function testAddSuccess(): void
@@ -151,7 +150,7 @@ class GroceryTest extends WebTestCase
         $client = static::createClient();
 
         $urlGenerator = self::getContainer()->get(UrlGeneratorInterface::class);
-        $url = $urlGenerator->generate('api_grocery_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $url = $urlGenerator->generate('api_grocery_list', ['type' => 'fruit'], UrlGeneratorInterface::ABSOLUTE_URL);
 
         $client->request(
             'GET',

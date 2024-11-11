@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\ChainOfResponsibility\Search\Fields;
 
+use App\Dto\GrocerySearchDto;
 use App\Repository\GroceryRepository;
 use App\Service\ChainOfResponsibility\Search\GrocerySearchInterface;
 use Doctrine\ORM\QueryBuilder;
@@ -12,14 +13,14 @@ class Name implements GrocerySearchInterface
 {
     private ?GrocerySearchInterface $nextField = null;
 
-    public function handle(array $fields, GroceryRepository $groceryRepository, QueryBuilder &$result): void
+    public function handle(GrocerySearchDto $grocerySearchDto, GroceryRepository $groceryRepository, QueryBuilder &$result): void
     {
-        if (isset($fields['name'])) {
-            $result = $groceryRepository->setNameFilter($result, $fields['name']);
+        if (isset($grocerySearchDto->name)) {
+            $result = $groceryRepository->setNameFilter($result, $grocerySearchDto->name);
         }
 
         if ($this->nextField) {
-            $this->nextField->handle($fields, $groceryRepository, $result);
+            $this->nextField->handle($grocerySearchDto, $groceryRepository, $result);
         }
     }
 

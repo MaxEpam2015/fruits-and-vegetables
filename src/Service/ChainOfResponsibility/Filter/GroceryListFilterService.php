@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\ChainOfResponsibility\Filter;
 
+use App\Dto\GroceryListDto;
 use App\Repository\GroceryRepository;
 use App\Service\ChainOfResponsibility\Filter\Fields\Quantity;
 use App\Service\ChainOfResponsibility\Filter\Fields\Type;
@@ -21,13 +22,11 @@ class GroceryListFilterService
         $this->firstField = $typeField;
     }
 
-    /**
-     * @param array{type: string, minQuantity: ?int, maxQuantity: ?int} $fields
-     */
-    public function perform(array $fields): mixed
+
+    public function perform(GroceryListDto $groceryListDto): mixed
     {
         $result = $this->groceryRepository->createQueryBuilder('g');
-        $this->firstField->handle($fields, $this->groceryRepository, $result);
+        $this->firstField->handle($groceryListDto, $this->groceryRepository, $result);
 
         return $this->groceryRepository->getResult($result);
     }

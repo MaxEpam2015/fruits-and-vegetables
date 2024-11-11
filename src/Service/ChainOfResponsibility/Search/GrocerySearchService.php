@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\ChainOfResponsibility\Search;
 
+use App\Dto\GrocerySearchDto;
 use App\Repository\GroceryRepository;
 use App\Service\ChainOfResponsibility\Search\Fields\Name;
 use App\Service\ChainOfResponsibility\Search\Fields\Quantity;
@@ -23,13 +24,10 @@ class GrocerySearchService
         $this->firstField = $nameField;
     }
 
-    /**
-     * @param array{name: string, type: string, minQuantity: ?int, maxQuantity: ?int} $fields
-     */
-    public function perform(array $fields): mixed
+    public function perform(GrocerySearchDto $grocerySearchDto): mixed
     {
         $result = $this->groceryRepository->createQueryBuilder('g');
-        $this->firstField->handle($fields, $this->groceryRepository, $result);
+        $this->firstField->handle($grocerySearchDto, $this->groceryRepository, $result);
 
         return $this->groceryRepository->getResult($result);
     }

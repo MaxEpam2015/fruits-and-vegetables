@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\App\Service;
 
-use App\Dto\GroceryAddDto;
+use App\Dto\Request\GroceryAddDto;
 use App\Entity\Grocery;
 use App\Repository\GroceryRepository;
 use App\Service\GroceryService;

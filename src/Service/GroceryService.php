@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Dto\GroceryAddDto;
+use App\Dto\Request\GroceryAddDto;
 use App\Entity\Grocery;
 use App\Repository\GroceryRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -32,6 +32,7 @@ class GroceryService
 
     public function remove(string $type, int|string $id): string
     {
+        /** @var Grocery $grocery */
         $grocery = $this->groceryRepository->findOneBy(['type' => $type, 'id' => $id]);
 
         if (!$grocery) {

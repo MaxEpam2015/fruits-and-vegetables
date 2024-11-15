@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\ChainOfResponsibility\Filter\Fields;
 
-use App\Dto\GroceryListDto;
+use App\Dto\Request\GroceryListDto;
 use App\Repository\GroceryRepository;
 use App\Service\ChainOfResponsibility\Filter\GroceryFilterInterface;
 use Doctrine\ORM\QueryBuilder;

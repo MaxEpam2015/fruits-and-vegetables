@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\ChainOfResponsibility\Filter;
 
-use App\Dto\GroceryListDto;
+use App\Dto\Request\GroceryListDto;
 use App\Repository\GroceryRepository;
 use App\Service\ChainOfResponsibility\Filter\Fields\Quantity;
 use App\Service\ChainOfResponsibility\Filter\Fields\Type;

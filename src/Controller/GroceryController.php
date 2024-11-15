@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Dto\GroceryAddDto;
-use App\Dto\GroceryListDto;
-use App\Dto\GrocerySearchDto;
+use App\Dto\Request\GroceryAddDto;
+use App\Dto\Request\GroceryListDto;
+use App\Dto\Request\GrocerySearchDto;
 use App\Response\ApiResponse;
 use App\Service\ChainOfResponsibility\Filter\GroceryListFilterService;
 use App\Service\ChainOfResponsibility\Search\GrocerySearchService;

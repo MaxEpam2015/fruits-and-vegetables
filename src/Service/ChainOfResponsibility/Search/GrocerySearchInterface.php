@@ -2,7 +2,7 @@
 
 namespace App\Service\ChainOfResponsibility\Search;
 
-use App\Dto\GrocerySearchDto;
+use App\Dto\Request\GrocerySearchDto;
 use App\Repository\GroceryRepository;
 use Doctrine\ORM\QueryBuilder;
 

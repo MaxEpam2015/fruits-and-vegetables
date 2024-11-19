@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\Grocery;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,7 +22,7 @@ class GroceryRepository extends ServiceEntityRepository
 
     public function getResult(QueryBuilder $queryBuilder): mixed
     {
-        return $queryBuilder->getQuery()->getResult();
+        return $queryBuilder->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
 
     public function add(Grocery $entity, bool $flush = true): void
@@ -81,5 +82,22 @@ class GroceryRepository extends ServiceEntityRepository
     {
         return $queryBuilder->andWhere('g.quantity <= :maxQuantity')
             ->setParameter('maxQuantity', $maxQuantity);
+    }
+
+    public function getGroceriesList(string $type, ?int $minQuantity, ?int $maxQuantity): mixed
+    {
+        $queryBuilder = $this->createQueryBuilder('g');
+        $queryBuilder
+            ->where('g.type = :type')
+            ->setParameter('type', $type);
+        if (!is_null($minQuantity)) {
+            $queryBuilder = $this->setMinQuantityFilter($queryBuilder, $minQuantity);
+        }
+
+        if (!is_null($maxQuantity)) {
+            $queryBuilder = $this->setMaxQuantityFilter($queryBuilder, $maxQuantity);
+        }
+
+        return $this->getResult($queryBuilder);
     }
 }

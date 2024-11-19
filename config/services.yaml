@@ -27,5 +27,15 @@ services:
         arguments:
             $filePath: '%file_path%'
 
+    App\Infrastructure\QueryBus\GroceryQueryBus:
+        arguments:
+            $handlers:
+                App\Application\Query\Grocery\GetGroceryDTOByTypeQuery: '@App\Application\Query\Grocery\GetGroceryDTOByTypeQueryHandler'
+
+    # Register the handler for GetGroceryDTOByIdQuery
+    App\Application\Query\Grocery\GetGroceryDTOByTypeQueryHandler:
+        arguments:
+            $groceryRepository: '@App\Repository\GroceryRepository'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

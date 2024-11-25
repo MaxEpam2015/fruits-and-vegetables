@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\Request;
+namespace App\DTO\Request;
 
-readonly class GrocerySearchDto
+readonly class GrocerySearchDTO
 {
     public function __construct(
         public ?string $name = null,

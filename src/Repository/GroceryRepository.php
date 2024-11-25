@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\Grocery;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,7 +22,7 @@ class GroceryRepository extends ServiceEntityRepository
 
     public function getResult(QueryBuilder $queryBuilder): mixed
     {
-        return $queryBuilder->getQuery()->getResult();
+        return $queryBuilder->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
 
     public function add(Grocery $entity, bool $flush = true): void
@@ -45,12 +46,13 @@ class GroceryRepository extends ServiceEntityRepository
             $grocery->setQuantity($item['quantity']);
 
             $this->getEntityManager()->persist($grocery);
+            break;
         }
 
         $this->getEntityManager()->flush();
     }
 
-    public function remove(Grocery $item, bool $flush = true): void
+    public function delete(Grocery $item, bool $flush = true): void
     {
         $this->getEntityManager()->remove($item);
 
@@ -59,27 +61,58 @@ class GroceryRepository extends ServiceEntityRepository
         }
     }
 
-    public function setNameFilter(QueryBuilder $queryBuilder, string $name): QueryBuilder
+    public function setName(QueryBuilder $queryBuilder, string $name): QueryBuilder
     {
         return $queryBuilder->andWhere('g.name LIKE :name')
             ->setParameter('name', '%'.$name.'%');
     }
 
-    public function setTypeFilter(QueryBuilder $queryBuilder, string $type): QueryBuilder
+    public function setType(QueryBuilder $queryBuilder, string $type): QueryBuilder
     {
         return $queryBuilder->andWhere('g.type = :type')
             ->setParameter('type', $type);
     }
 
-    public function setMinQuantityFilter(QueryBuilder $queryBuilder, int|string $minQuantity): QueryBuilder
+    public function setMinQuantity(QueryBuilder $queryBuilder, int|string $minQuantity): QueryBuilder
     {
         return $queryBuilder->andWhere('g.quantity >= :minQuantity')
             ->setParameter('minQuantity', $minQuantity);
     }
 
-    public function setMaxQuantityFilter(QueryBuilder $queryBuilder, int|string $maxQuantity): QueryBuilder
+    public function setMaxQuantity(QueryBuilder $queryBuilder, int|string $maxQuantity): QueryBuilder
     {
         return $queryBuilder->andWhere('g.quantity <= :maxQuantity')
             ->setParameter('maxQuantity', $maxQuantity);
+    }
+
+    public function getGroceriesList(string $type, ?int $minQuantity, ?int $maxQuantity): mixed
+    {
+        $queryBuilder = $this->setType($this->createQueryBuilder('g'), $type);
+        if (!is_null($minQuantity)) {
+            $queryBuilder = $this->setMinQuantity($queryBuilder, $minQuantity);
+        }
+
+        if (!is_null($maxQuantity)) {
+            $queryBuilder = $this->setMaxQuantity($queryBuilder, $maxQuantity);
+        }
+
+        return $this->getResult($queryBuilder);
+    }
+
+    public function search(string $name, ?string $type, ?int $minQuantity, ?int $maxQuantity): mixed
+    {
+        $queryBuilder = $this->setName($this->createQueryBuilder('g'), $name);
+
+        if (!is_null($type)) {
+            $queryBuilder = $this->setType($queryBuilder, $type);
+        }
+        if (!is_null($minQuantity)) {
+            $queryBuilder = $this->setMinQuantity($queryBuilder, $minQuantity);
+        }
+        if (!is_null($maxQuantity)) {
+            $queryBuilder = $this->setMaxQuantity($queryBuilder, $maxQuantity);
+        }
+
+        return $this->getResult($queryBuilder);
     }
 }

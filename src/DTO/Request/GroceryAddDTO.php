@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\Request;
+namespace App\DTO\Request;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class GroceryAddDto
+class GroceryAddDTO
 {
     public function __construct(
         #[Assert\NotBlank]

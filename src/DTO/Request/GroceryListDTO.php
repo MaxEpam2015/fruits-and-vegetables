@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\Request;
+namespace App\DTO\Request;
 
-readonly class GroceryListDto
+readonly class GroceryListDTO
 {
     public function __construct(
         public string $type,

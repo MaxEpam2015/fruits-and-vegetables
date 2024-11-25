@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Dto\Request\GroceryAddDto;
+use App\DTO\Request\GroceryAddDTO;
+use App\DTO\Request\GroceryDeleteDTO;
+use App\DTO\Request\GroceryListDTO;
+use App\DTO\Request\GrocerySearchDTO;
 use App\Entity\Grocery;
 use App\Repository\GroceryRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -13,33 +16,49 @@ class GroceryService
 {
     public function __construct(
         protected GroceryRepository $groceryRepository,
-        protected Validator $validator,
     ) {
     }
 
-    public function add(GroceryAddDto $data): string
+    public function add(GroceryAddDTO $groceryAddDTO): string
     {
-        $this->validator->validate($data);
+        if (null === $groceryAddDTO->type) {
+            throw new NotFoundHttpException($groceryAddDTO->type);
+        }
+
         $grocery = new Grocery();
-        $grocery->setName($data->name);
-        $grocery->setQuantity($data->quantity);
-        $grocery->setType($data->type);
-        $grocery->setUnit($data->unit ?? '');
+        $grocery->setName($groceryAddDTO->name);
+        $grocery->setQuantity($groceryAddDTO->quantity);
+        $grocery->setType($groceryAddDTO->type);
+        $grocery->setUnit($groceryAddDTO->unit ?? '');
         $this->groceryRepository->add($grocery);
 
-        return $data->name.' has been added successfully';
+        return $groceryAddDTO->name.' has been added successfully';
     }
 
-    public function remove(string $type, int|string $id): string
+    public function delete(GroceryDeleteDTO $groceryDeleteDTO): string
     {
         /** @var Grocery $grocery */
-        $grocery = $this->groceryRepository->findOneBy(['type' => $type, 'id' => $id]);
+        $grocery = $this->groceryRepository->findOneBy(['type' => $groceryDeleteDTO->type, 'id' => $groceryDeleteDTO->id]);
 
         if (!$grocery) {
-            throw new NotFoundHttpException('Not found grocery for id '.$id);
+            throw new NotFoundHttpException('Not found grocery for id '.$groceryDeleteDTO->id);
         }
-        $this->groceryRepository->remove($grocery);
+        $this->groceryRepository->delete($grocery);
 
-        return "Grocery id: {$id}, type: {$type} has been removed successfully";
+        return "Grocery id: {$groceryDeleteDTO->id}, type: {$groceryDeleteDTO->type} has been deleted successfully";
+    }
+
+    public function list(GroceryListDTO $groceryListDTO): array
+    {
+        if (null === $groceryListDTO->type) {
+            throw new NotFoundHttpException($groceryListDTO->type);
+        }
+
+        return $this->groceryRepository->getGroceriesList($groceryListDTO->type, $groceryListDTO->minQuantity, $groceryListDTO->maxQuantity);
+    }
+
+    public function search(GrocerySearchDTO $grocerySearchDTO): array
+    {
+        return $this->groceryRepository->search($grocerySearchDTO->name, $grocerySearchDTO->type, $grocerySearchDTO->minQuantity, $grocerySearchDTO->maxQuantity);
     }
 }

@@ -8,6 +8,7 @@ use App\Entity\Grocery;
 use App\Repository\GroceryRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class GroceryTest extends WebTestCase
@@ -18,13 +19,9 @@ class GroceryTest extends WebTestCase
     {
         $client = static::createClient();
         $client->catchExceptions(false);
-
         $groceryRepository = static::getContainer()->get(GroceryRepository::class);
-
         $urlGenerator = self::getContainer()->get(UrlGeneratorInterface::class);
-
         $url = $urlGenerator->generate('api_grocery_add', [], UrlGeneratorInterface::ABSOLUTE_URL);
-
         $expectedGroceryCount = count($groceryRepository->findAll());
         $data = [
             'name' => 'Apple',
@@ -47,6 +44,7 @@ class GroceryTest extends WebTestCase
     public function testAddInvalidDataFormat(): void
     {
         $client = static::createClient();
+        $client->catchExceptions(false);
 
         $groceryRepository = static::getContainer()->get(GroceryRepository::class);
         $urlGenerator = self::getContainer()->get(UrlGeneratorInterface::class);
@@ -57,6 +55,7 @@ class GroceryTest extends WebTestCase
             'quantity' => 200,
             'type' => self::TYPE,
         ];
+        $this->expectException(UnprocessableEntityHttpException::class);
         $client->request(
             'POST',
             $url,
@@ -72,6 +71,7 @@ class GroceryTest extends WebTestCase
     public function testAddInvalidQuantityType(): void
     {
         $client = static::createClient();
+        $client->catchExceptions(false);
 
         $groceryRepository = static::getContainer()->get(GroceryRepository::class);
 
@@ -84,6 +84,7 @@ class GroceryTest extends WebTestCase
             'quantity' => 'invalidType',
             'type' => self::TYPE,
         ];
+        $this->expectException(UnprocessableEntityHttpException::class);
         $client->request(
             'POST',
             $url,
@@ -96,7 +97,7 @@ class GroceryTest extends WebTestCase
         $this->assertSame($expectedGroceryCount, $actualGroceryCount);
     }
 
-    public function testRemoveSuccess(): void
+    public function testDeleteSuccess(): void
     {
         $client = static::createClient();
         $client->catchExceptions(false);
@@ -128,7 +129,7 @@ class GroceryTest extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
-    public function testRemoveNotFoundGrocery(): void
+    public function testDeleteNotFoundGrocery(): void
     {
         $this->expectException(NotFoundHttpException::class);
         $client = static::createClient();

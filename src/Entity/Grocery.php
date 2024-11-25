@@ -11,7 +11,6 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ORM\Entity(repositoryClass: GroceryRepository::class)]
 #[ORM\Table(name: 'groceries')]
-#[ORM\Index(name: 'type_idx', columns: ['type'])]
 class Grocery
 {
     #[ORM\Id]

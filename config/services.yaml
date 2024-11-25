@@ -23,19 +23,43 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
-    App\Service\FileParser:
+    App\Application\Command\Grocery\DTO\FileParserCommandDTO:
         arguments:
             $filePath: '%file_path%'
 
+    # |==========================================> Query Bus ==========================================================|
+
+    # --> Query handlers
     App\Infrastructure\QueryBus\GroceryQueryBus:
         arguments:
             $handlers:
-                App\Application\Query\Grocery\GetGroceryDTOByTypeQuery: '@App\Application\Query\Grocery\GetGroceryDTOByTypeQueryHandler'
+                App\Application\Query\Grocery\DTO\GrocerySearchQueryDTO: '@App\Application\Query\Grocery\Handler\GrocerySearchHandler'
+                App\Application\Query\Grocery\DTO\GetGroceryListQueryDTO: '@App\Application\Query\Grocery\Handler\GetGroceryListHandler'
+    # <-- Query handlers
 
-    # Register the handler for GetGroceryDTOByIdQuery
-    App\Application\Query\Grocery\GetGroceryDTOByTypeQueryHandler:
+    # |========================================== Query Bus <==========================================================|
+
+
+    # |==========================================> Command Bus ========================================================|
+
+    # --> Command handlers
+    App\Infrastructure\CommandBus\GroceryCommandBus:
         arguments:
+            $handlers:
+                App\Application\Command\Grocery\DTO\FileParserCommandDTO: '@App\Application\Command\Grocery\Handler\FileParserCommandHandler'
+                App\Application\Command\Grocery\DTO\GroceryAddCommandDTO: '@App\Application\Command\Grocery\Handler\GroceryAddCommandHandler'
+                App\Application\Command\Grocery\DTO\GroceryDeleteCommandDTO: '@App\Application\Command\Grocery\Handler\GroceryDeleteCommandHandler'
+    # <-- Command handlers
+
+    # --> FileParserCommand DI
+    App\Command\FileParserCommand:
+        arguments:
+            $commandBus: '@App\Infrastructure\CommandBus\GroceryCommandBus'
+            $command: '@App\Application\Command\Grocery\DTO\FileParserCommandDTO'
             $groceryRepository: '@App\Repository\GroceryRepository'
+    # <-- FileParserCommand DI
+
+    # |========================================== Command Bus <==========================================================|
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Domain\Exception\Repository\Grocery;
 
-use App\Domain\ValueObject\Grocery\Type;
+use App\Domain\Exception\Repository\NotFound;
 
-final class GroceryDTONotFound extends \Exception
+final class GroceryDTONotFound extends \Exception implements NotFound
 {
-    public static function withGroceryType(Type $groceryType): self
+    public static function withGroceryType(string $type): self
     {
         return new self(
             sprintf(
                 'Grocery with type "%s" not found',
-                $groceryType,
+                $type,
             )
         );
     }

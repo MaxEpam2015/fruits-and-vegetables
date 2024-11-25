@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Symfony\Subscriber;
 
-use App\Domain\Exception\Repository\Grocery\GroceryDTONotFound;
+use App\Domain\Exception\Repository\NotFound;
 use App\Domain\Exception\ValueObject\InvalidValueObject;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 final readonly class ExceptionResponseSubscriber implements EventSubscriberInterface
 {
     private const EXCEPTION_RESPONSE_HTTP_CODE_MAP = [
-        GroceryDTONotFound::class => Response::HTTP_NOT_FOUND,
+        NotFound::class => Response::HTTP_NOT_FOUND,
         InvalidValueObject::class => Response::HTTP_UNPROCESSABLE_ENTITY,
     ];
 

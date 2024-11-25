@@ -1,5 +1,7 @@
 # 🍎🥕 Fruits and Vegetables
 
+* On `main` branch CQRS pattern
+* On `service` Service Layer pattern
 ## Set up and run project (tested with Composer version 2.4.4 and docker desktop 4.28.0)
 * Clone project
 ```bash
@@ -12,7 +14,6 @@ mv .env.local .env
 ```bash
 mv .env.test.local .env.test
 ```
-
 * 🏃‍♂️ Running containers
 ```bash
 docker-compose up -d

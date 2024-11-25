@@ -4,25 +4,20 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\QueryBus;
 
-use App\Application\Query\Query;
+use App\Application\Query\QueryDTO;
 use App\Application\Query\QueryHandler;
+use App\Repository\GroceryRepository;
 
-final class GroceryQueryBus implements QueryBus
+final class GroceryQueryBus
 {
     /**
-     * @var array<class-string<Query>, QueryHandler>
+     * @param array<class-string<QueryDTO>, QueryHandler> $handlers
      */
-    private array $handlers;
-
-    /**
-     * @param array<class-string<Query>, QueryHandler> $handlers
-     */
-    public function __construct(array $handlers)
+    public function __construct(protected array $handlers)
     {
-        $this->handlers = $handlers;
     }
 
-    public function __invoke(Query $query): mixed
+    public function __invoke(QueryDTO $query, GroceryRepository $groceryRepository): mixed
     {
         $queryClass = $query::class;
 
@@ -32,6 +27,6 @@ final class GroceryQueryBus implements QueryBus
 
         $handler = $this->handlers[$queryClass];
 
-        return $handler->handle($query);
+        return $handler->handle($query, $groceryRepository);
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\App\Bus\Query;
+namespace App\Tests\App\Bus\Command;
 
 use App\Application\Command\Grocery\DTO\GroceryDeleteCommandDTO;
 use App\Application\Command\Grocery\Handler\GroceryDeleteCommandHandler;
@@ -14,11 +14,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class GroceryDeleteTest extends WebTestCase
 {
     public const TYPE = 'fruit';
-
-//    protected function setUp(): void
-//    {
-//        $this->groceryRepository = $this->createMock(GroceryRepository::class);
-//    }
 
     public function testDeleteSuccess(): void
     {

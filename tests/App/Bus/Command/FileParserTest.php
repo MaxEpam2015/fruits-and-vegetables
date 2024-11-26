@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\App\Bus\Query;
+namespace App\Tests\App\Bus\Command;
 
 use App\Application\Command\Grocery\DTO\FileParserCommandDTO;
 use App\Application\Command\Grocery\Handler\FileParserCommandHandler;
@@ -43,9 +43,7 @@ class FileParserTest extends KernelTestCase
     {
         $invalidJsonFile = tempnam(sys_get_temp_dir(), 'invalid_json');
         file_put_contents($invalidJsonFile, '{invalid json...');
-//        $fileParserCommandHandler = static::getContainer()->get(FileParserCommandHandler::class);
         $fileParserCommandHandler = new FileParserCommandHandler();
-
         $fileParserCommand = new FileParserCommandDTO($invalidJsonFile);
         $this->assertSame('Invalid JSON: Syntax error', $fileParserCommandHandler->handle($fileParserCommand, $this->groceryRepository));
         unlink($invalidJsonFile);

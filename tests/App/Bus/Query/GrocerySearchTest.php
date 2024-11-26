@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\App\Bus\Command;
+namespace App\Tests\App\Bus\Query;
 
 use App\Application\Query\Grocery\DTO\GetGroceryListQueryDTO;
 use App\Application\Query\Grocery\Handler\GetGroceryListHandler;

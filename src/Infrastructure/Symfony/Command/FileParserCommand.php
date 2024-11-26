@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Command;
+namespace App\Infrastructure\Symfony\Command;
 
 use App\Application\Command\CommandDTO as CommandInterface;
 use App\Infrastructure\CommandBus\GroceryCommandBus;
-use App\Repository\GroceryRepository;
+use App\Infrastructure\Doctrine\Repository\GroceryRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

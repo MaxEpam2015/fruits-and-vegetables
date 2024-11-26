@@ -6,8 +6,8 @@ namespace App\Tests\App\Bus\Command;
 
 use App\Application\Query\Grocery\DTO\GetGroceryListQueryDTO;
 use App\Application\Query\Grocery\Handler\GetGroceryListHandler;
-use App\Entity\Grocery;
-use App\Repository\GroceryRepository;
+use App\Domain\Entity\Grocery;
+use App\Infrastructure\Doctrine\Repository\GroceryRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class GrocerySearchTest extends WebTestCase

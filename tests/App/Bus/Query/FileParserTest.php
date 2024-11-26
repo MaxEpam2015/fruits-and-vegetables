@@ -4,7 +4,7 @@ namespace App\Tests\App\Bus\Query;
 
 use App\Application\Command\Grocery\DTO\FileParserCommandDTO;
 use App\Application\Command\Grocery\Handler\FileParserCommandHandler;
-use App\Repository\GroceryRepository;
+use App\Infrastructure\Doctrine\Repository\GroceryRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 

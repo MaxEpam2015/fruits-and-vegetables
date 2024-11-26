@@ -6,7 +6,7 @@ namespace App\Application\Query\Grocery\Handler;
 
 use App\Application\Query\QueryDTO;
 use App\Application\Query\QueryHandler;
-use App\Repository\GroceryRepository;
+use App\Infrastructure\Doctrine\Repository\GroceryRepository;
 
 final readonly class GrocerySearchHandler implements QueryHandler
 {

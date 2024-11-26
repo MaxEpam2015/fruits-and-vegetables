@@ -7,8 +7,8 @@ namespace App\Application\Command\Grocery\Handler;
 use App\Application\Command\CommandDTO;
 use App\Application\Command\CommandHandler;
 use App\Application\Command\Grocery\DTO\GroceryDeleteCommandDTO;
-use App\Entity\Grocery;
-use App\Repository\GroceryRepository;
+use App\Domain\Entity\Grocery;
+use App\Infrastructure\Doctrine\Repository\GroceryRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final readonly class GroceryDeleteCommandHandler implements CommandHandler

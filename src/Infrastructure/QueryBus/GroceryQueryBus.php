@@ -6,7 +6,7 @@ namespace App\Infrastructure\QueryBus;
 
 use App\Application\Query\QueryDTO;
 use App\Application\Query\QueryHandler;
-use App\Repository\GroceryRepository;
+use App\Infrastructure\Doctrine\Repository\GroceryRepository;
 
 final class GroceryQueryBus
 {

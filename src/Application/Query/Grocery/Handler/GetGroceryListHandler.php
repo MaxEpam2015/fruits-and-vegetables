@@ -7,7 +7,7 @@ namespace App\Application\Query\Grocery\Handler;
 use App\Application\Query\QueryDTO;
 use App\Application\Query\QueryHandler;
 use App\Domain\Exception\Repository\Grocery\GroceryDTONotFound;
-use App\Repository\GroceryRepository;
+use App\Infrastructure\Doctrine\Repository\GroceryRepository;
 
 final readonly class GetGroceryListHandler implements QueryHandler
 {

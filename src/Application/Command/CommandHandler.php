@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\Command;
 
-use App\Repository\GroceryRepository;
+use App\Infrastructure\Doctrine\Repository\GroceryRepository;
 
 interface CommandHandler
 {

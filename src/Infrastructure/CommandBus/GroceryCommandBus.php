@@ -6,7 +6,7 @@ namespace App\Infrastructure\CommandBus;
 
 use App\Application\Command\CommandDTO;
 use App\Application\Command\CommandHandler;
-use App\Repository\GroceryRepository;
+use App\Infrastructure\Doctrine\Repository\GroceryRepository;
 
 final readonly class GroceryCommandBus
 {

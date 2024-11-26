@@ -7,7 +7,7 @@ namespace App\Tests\App\Bus\Query;
 use App\Application\Command\Grocery\DTO\GroceryAddCommandDTO;
 use App\Application\Command\Grocery\Handler\GroceryAddCommandHandler;
 use App\Domain\Exception\Repository\Grocery\GroceryDTONotFound;
-use App\Repository\GroceryRepository;
+use App\Infrastructure\Doctrine\Repository\GroceryRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class GroceryAddTest extends WebTestCase

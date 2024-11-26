@@ -19,8 +19,8 @@ services:
     App\:
         resource: '../src/'
         exclude:
-            - '../src/DependencyInjection/'
-            - '../src/Entity/'
+            - '../src/Infrastructure/Symfony/Controller/DependencyInjection/'
+            - '../src/Domain/Entity/'
             - '../src/Kernel.php'
 
     App\Application\Command\Grocery\DTO\FileParserCommandDTO:
@@ -52,11 +52,11 @@ services:
     # <-- Command handlers
 
     # --> FileParserCommand DI
-    App\Command\FileParserCommand:
+    App\Infrastructure\Symfony\Command\FileParserCommand:
         arguments:
             $commandBus: '@App\Infrastructure\CommandBus\GroceryCommandBus'
             $command: '@App\Application\Command\Grocery\DTO\FileParserCommandDTO'
-            $groceryRepository: '@App\Repository\GroceryRepository'
+            $groceryRepository: '@App\Infrastructure\Doctrine\Repository\GroceryRepository'
     # <-- FileParserCommand DI
 
     # |========================================== Command Bus <==========================================================|

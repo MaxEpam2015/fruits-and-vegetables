@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Command;
+namespace App\Infrastructure\Symfony\Controller\Command;
 
 use App\Application\Command\Grocery\DTO\GroceryAddCommandDTO;
 use App\Infrastructure\CommandBus\GroceryCommandBus;
-use App\Repository\GroceryRepository;
+use App\Infrastructure\Doctrine\Repository\GroceryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Domain\Entity;
 
-use App\Repository\GroceryRepository;
+use App\Infrastructure\Doctrine\Repository\GroceryRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;

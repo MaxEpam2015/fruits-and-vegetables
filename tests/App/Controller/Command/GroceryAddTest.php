@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\App\Controller\Command;
 
-use App\Repository\GroceryRepository;
+use App\Infrastructure\Doctrine\Repository\GroceryRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 

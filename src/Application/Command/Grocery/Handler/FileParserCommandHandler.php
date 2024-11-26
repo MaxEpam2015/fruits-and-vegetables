@@ -7,7 +7,7 @@ namespace App\Application\Command\Grocery\Handler;
 use App\Application\Command\CommandDTO;
 use App\Application\Command\CommandHandler;
 use App\Application\Command\Grocery\DTO\FileParserCommandDTO;
-use App\Repository\GroceryRepository;
+use App\Infrastructure\Doctrine\Repository\GroceryRepository;
 
 final readonly class FileParserCommandHandler implements CommandHandler
 {

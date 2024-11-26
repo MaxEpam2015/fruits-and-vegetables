@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Query;
+namespace App\Infrastructure\Symfony\Controller\Query;
 
-use App\Application\Query\Grocery\DTO\GetGroceryListQueryDTO;
+use App\Application\Query\Grocery\DTO\GrocerySearchQueryDTO;
+use App\Infrastructure\Doctrine\Repository\GroceryRepository;
 use App\Infrastructure\QueryBus\GroceryQueryBus;
-use App\Repository\GroceryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\MapQueryString;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/api', name: 'api_')]
-final class GetGroceryListController extends AbstractController
+final class GrocerySearchController extends AbstractController
 {
     public function __construct(
         private readonly GroceryQueryBus $queryBus,
@@ -21,15 +21,14 @@ final class GetGroceryListController extends AbstractController
     ) {
     }
 
-    #[Route('/grocery', name: 'grocery_list', methods: ['get'])]
-    public function __invoke(
-        #[MapQueryString] GetGroceryListQueryDTO $getGroceryListDTOQuery,
-    ): JsonResponse {
-        $queryBusResponse = $this->queryBus->__invoke(
-            $getGroceryListDTOQuery,
+    #[Route('/search', name: 'search', methods: ['get'])]
+    public function search(#[MapQueryString] GrocerySearchQueryDTO $searchDTOQuery): JsonResponse
+    {
+        $groceryDTO = $this->queryBus->__invoke(
+            $searchDTOQuery,
             $this->groceryRepository
         );
 
-        return $this->json($queryBusResponse);
+        return $this->json($groceryDTO);
     }
 }

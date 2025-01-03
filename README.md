@@ -7,13 +7,6 @@
 ```bash
 git clone https://github.com/MaxEpam2015/fruits-and-vegetables.git
 ```
-* Move .env.local to .env and .env.test.local to .env.test
-```bash
-mv .env.local .env
-```
-```bash
-mv .env.test.local .env.test
-```
 * 🏃‍♂️ Running containers
 ```bash
 docker-compose up -d

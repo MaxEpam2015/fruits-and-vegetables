@@ -17,7 +17,7 @@ services:
   nginx:
     container_name: nginx-fruits
     build:
-      context: ./.docker/development
+      context: ./.docker/development/nginx
       dockerfile: nginx.docker
     volumes:
       - ./:/app
@@ -31,7 +31,7 @@ services:
     depends_on:
       - database
     build:
-      context: ./.docker/development
+      context: ./.docker/development/php
       dockerfile: php-fpm.docker
     volumes:
       - ./:/app
